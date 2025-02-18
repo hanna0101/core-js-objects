@@ -17,8 +17,8 @@
  *    shallowCopy({a: 2, b: { a: [1, 2, 3]}}) => {a: 2, b: { a: [1, 2, 3]}}
  *    shallowCopy({}) => {}
  */
-function shallowCopy(/* obj */) {
-  throw new Error('Not implemented');
+function shallowCopy(obj) {
+  return { ...obj };
 }
 
 /**
@@ -46,11 +46,17 @@ function mergeObjects(/* objects */) {
  * @example
  *    removeProperties({a: 1, b: 2, c: 3}, ['b', 'c']) => {a: 1}
  *    removeProperties({a: 1, b: 2, c: 3}, ['d', 'e']) => {a: 1, b: 2, c: 3}
- *    removeProperties({name: 'John', age: 30, city: 'New York'}, ['age']) => {name: 'John', city: 'New York'}
+ *    removeProperties({name: 'John', age: 30, city: 'New York'}, 'age') => {name: 'John', city: 'New York'}
  *
  */
-function removeProperties(/* obj, keys */) {
-  throw new Error('Not implemented');
+function removeProperties(obj, keys) {
+  const objCopy = { ...obj };
+
+  keys.forEach((key) => {
+    delete objCopy[key];
+  });
+
+  return objCopy;
 }
 
 /**
@@ -65,8 +71,8 @@ function removeProperties(/* obj, keys */) {
  *    compareObjects({a: 1, b: 2}, {a: 1, b: 2}) => true
  *    compareObjects({a: 1, b: 2}, {a: 1, b: 3}) => false
  */
-function compareObjects(/* obj1, obj2 */) {
-  throw new Error('Not implemented');
+function compareObjects(obj1, obj2) {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
 /**
@@ -80,8 +86,8 @@ function compareObjects(/* obj1, obj2 */) {
  *    isEmptyObject({}) => true
  *    isEmptyObject({a: 1}) => false
  */
-function isEmptyObject(/* obj */) {
-  throw new Error('Not implemented');
+function isEmptyObject(obj) {
+  return Object.keys(obj).length === 0;
 }
 
 /**
@@ -100,8 +106,8 @@ function isEmptyObject(/* obj */) {
  *    immutableObj.newProp = 'new';
  *    console.log(immutableObj) => {a: 1, b: 2}
  */
-function makeImmutable(/* obj */) {
-  throw new Error('Not implemented');
+function makeImmutable(obj) {
+  return Object.freeze(obj);
 }
 
 /**
@@ -149,8 +155,14 @@ function sellTickets(/* queue */) {
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  return {
+    width,
+    height,
+    getArea() {
+      return width * height;
+    },
+  };
 }
 
 /**
@@ -161,10 +173,10 @@ function Rectangle(/* width, height */) {
  *
  * @example
  *    [1,2,3]   =>  '[1,2,3]'
- *    { height: 10, width: 20 } => '{"height":10,"width":20}'
+ *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 /**
